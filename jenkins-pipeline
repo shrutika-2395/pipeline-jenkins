@@ -1,0 +1,33 @@
+pipeline {
+ agent {lable 'node-1'}
+    stages {
+    
+        stage{
+            steps{
+                sh 'apt install nginix -y'
+            }
+        }
+    }
+          stage ('deploy index')
+          {
+            steps {
+                sh """
+                 echo "welcome to youngminds.
+                     Keeep Learning!! keep Growing!! " >> /var/www/html/index.html
+              """
+            }
+          }
+         stage ('stop-nginx')
+          {
+            steps {
+                sh 'systemctl nginx stop'
+            }
+          }
+        stage ('start-nginx')
+          {
+            steps {
+                sh 'systemctl nginx start'
+            }
+          }
+}
+ 
